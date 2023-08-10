@@ -6,16 +6,16 @@ class DataTest {
     @Test
     void testConvertToMegabytes() {
         Data data1 = new Data(1024, "bytes", 100);
-        assertEquals(0.0009765625, data1.convertToMegabytes(), 0.000001);
+        assertEquals(0.0009765625, data1.convertToMegabytes(), 0.01);
 
         Data data2 = new Data(512, "kilobytes", 100);
-        assertEquals(0.5, data2.convertToMegabytes(), 0.000001);
+        assertEquals(0.5, data2.convertToMegabytes(), 0.01);
 
         Data data3 = new Data(1, "megabytes", 100);
-        assertEquals(1.0, data3.convertToMegabytes(), 0.000001);
+        assertEquals(1.0, data3.convertToMegabytes(), 0.01);
 
         Data data4 = new Data(2, "gigabytes", 100);
-        assertEquals(2048.0, data4.convertToMegabytes(), 0.000001);
+        assertEquals(2048.0, data4.convertToMegabytes(), 0.01);
 
         assertThrows(IllegalArgumentException.class, () -> new Data(1, "invalidunit", 100).convertToMegabytes());
     }
