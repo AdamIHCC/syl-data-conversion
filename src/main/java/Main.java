@@ -28,5 +28,7 @@ public class Main {
         //Print out the data Object with your toString();
 
         System.out.println(data.toString());
+
+        // Good variable names throughout the project!
     }
 }

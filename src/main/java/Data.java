@@ -14,6 +14,7 @@ public class Data {
     }
 
 //    Getters & Setters
+    // I should really start using these..
     public double getAmount() {
         return amount;
     }
@@ -47,28 +48,23 @@ public class Data {
 
 //    Class methods
     public static double convertToMegabytes() {
+        // This works, I like to use the enhanced switch since
+        // you don't have to worry about breaks, and it's fewer lines.
         switch (unit) {
-            case "bytes":
-                megabyteAmount = (amount / 1024) / 1024;
-                break;
-            case "kilobytes":
-                megabyteAmount = amount / 1024;
-                break;
-            case "gigabytes":
-                megabyteAmount = amount * 1024;
-                break;
-            case "megabytes":
-                megabyteAmount = amount;
-                break;
-            default:
-                throw new IllegalArgumentException();
+            case "bytes" -> megabyteAmount = (amount / 1024) / 1024;
+            case "kilobytes" -> megabyteAmount = amount / 1024;
+            case "gigabytes" -> megabyteAmount = amount * 1024;
+            case "megabytes" -> megabyteAmount = amount;
+            default -> throw new IllegalArgumentException();
         }
         return megabyteAmount;
     }
 
     public static double calculateDownloadTime() {
-        convertToMegabytes();
-        downloadTime = megabyteAmount / ((double) downloadSpeed / 8);
+        // Replacing the variable with its respective method
+        // is quite useful, so you don't have to call it on its own.
+        //convertToMegabytes();
+        downloadTime = convertToMegabytes() / ((double) downloadSpeed / 8);
 
         return downloadTime;
     }
@@ -78,6 +74,7 @@ public class Data {
         downloadTimeSeconds = downloadTime % 60;
         downloadTimeMinute = (downloadTime - downloadTimeSeconds) / 60;
 
+        // I like the usage of DecimalFormat here, very creative!
         DecimalFormat formatTime = new DecimalFormat("#");
 
         return formattedDownloadTime = formatTime.format(downloadTimeMinute) + " minutes " + formatTime.format(downloadTimeSeconds) + " seconds";
@@ -86,8 +83,10 @@ public class Data {
 //    toString using Class methods
     @Override
     public String toString() {
-        convertToMegabytes();
-        calculateDownloadTime();
+        // Calling all three works, but since they each call
+        // the previous method, calling the last one works too.
+        //convertToMegabytes();
+        //calculateDownloadTime();
         getFormattedDownloadTime();
 
         return "Data: " + amount + " " + unit +
